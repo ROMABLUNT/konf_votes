@@ -1,0 +1,20 @@
+@import '../../styles/mixins';
+
+.member-card {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    @include card-shadow;
+  
+    h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+  
+    p {
+      font-size: 14px;
+      color: #666;
+    }
+  }
+  

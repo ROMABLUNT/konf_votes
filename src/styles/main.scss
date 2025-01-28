@@ -1,0 +1,11 @@
+@import './variables';
+@import './mixins';
+@import './base/reset';
+
+
+body {
+  font-family: $font-family;
+  background-color: $bg-color;
+  margin: 0;
+  padding: 0;
+}
