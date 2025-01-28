@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMembers } from '../../store/slices/membersSlice';
 import MemberCard from '../../components/MemberCard/MemberCard';
+import "./ConferencePage.scss";
 
 const ConferencePage = () => {
   const { id } = useParams(); // Извлекаем id из URL
@@ -21,17 +22,25 @@ const ConferencePage = () => {
     return <div>Ошибка: {error}</div>;
   }
 
+  // Обработчик клика для кнопки "Подтвердить"
+  const handleConfirmClick = () => {
+    console.log('Подтверждение прошло успешно!');
+    // Здесь можно добавить дополнительную логику для обработки подтверждения, например, отправку данных на сервер
+  };
+
   return (
-    <div>
+    <div className="conference-container">
       <h1>Участники конференции</h1>
       <div>
         {members.map((member) => (
-          <MemberCard
-            key={member.id}
-            member={member}
-          />
+          <MemberCard key={member.id} member={member} />
         ))}
       </div>
+
+      {/* Кнопка Подтвердить */}
+      <button className="confirm-button" onClick={handleConfirmClick}>
+        Подтвердить
+      </button>
     </div>
   );
 };
