@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import ReactionSelector from '../ReactionSelector/ReactionSelector';
 import './MemberCard.scss';
 
-
-const MemberCard = ({ member }) => {
+const MemberCard = ({ member, onReactionSelect }) => {
   const [reaction, setReaction] = useState(null);
 
   const handleReactionSelect = (emoji) => {
     setReaction(emoji);
-    // Отправка на сервер здесь (опционально)
+    onReactionSelect(member.id, emoji);  // Обновляем реакцию для данного участника в родительском компоненте
   };
 
   return (
