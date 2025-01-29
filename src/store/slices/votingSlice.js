@@ -2,12 +2,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { voteForMember } from '../../services/api';
 
-export const sendVotes = createAsyncThunk(
-  'voting/sendVotes',
-  async (votes, { rejectWithValue }) => {
+// Изменяем на sendVote для отправки одного голоса
+export const sendVote = createAsyncThunk(
+  'voting/sendVote',
+  async (voteData, { rejectWithValue }) => {
     try {
-      // Отправляем массив голосов на сервер
-      const response = await voteForMember({ votes });
+      // Отправляем один голос на сервер
+      const response = await voteForMember(voteData);
       return response; // Возвращаем ответ от сервера
     } catch (error) {
       return rejectWithValue(error.response.data); // Обработка ошибок
@@ -24,13 +25,13 @@ const votingSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(sendVotes.pending, (state) => {
+      .addCase(sendVote.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(sendVotes.fulfilled, (state) => {
+      .addCase(sendVote.fulfilled, (state) => {
         state.status = 'succeeded';
       })
-      .addCase(sendVotes.rejected, (state, action) => {
+      .addCase(sendVote.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       });
