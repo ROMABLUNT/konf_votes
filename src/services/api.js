@@ -16,6 +16,11 @@ export const getMembers = async (eventId) => {
 
 // Отправить голос за участника
 export const voteForMember = async (voteData) => {
-  const response = await axios.post(`${API_BASE}/vote-for-member`, voteData);
-  return response.data;
+  try {
+    const response = await axios.post(`${API_BASE}/vote-for-member`, voteData);
+    return response.data; 
+  } catch (error) {
+    console.error('Ошибка при отправке голосов:', error);
+    throw error;
+  }
 };

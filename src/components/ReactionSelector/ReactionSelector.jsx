@@ -1,17 +1,23 @@
 import React from 'react';
 import './ReactionSelector.scss';
 
-const emojis = ['👍', '👏', '❤️', '🎉'];
+// Задаем ID для каждой реакции
+const emojis = [
+  { id: 1, emoji: '👍' },
+  { id: 2, emoji: '👏' },
+  { id: 3, emoji: '❤️' },
+  { id: 4, emoji: '🎉' },
+];
 
 const ReactionSelector = ({ selected, onSelect }) => (
   <div className="reaction-selector">
-    {emojis.map((emoji) => (
+    {emojis.map((reaction) => (
       <button
-        key={emoji}
-        className={emoji === selected ? 'selected' : ''}
-        onClick={() => onSelect(emoji)}
+        key={reaction.id}
+        className={reaction.id === selected ? 'selected' : ''}
+        onClick={() => onSelect(reaction.id)}  // Отправляем id реакции
       >
-        {emoji}
+        {reaction.emoji}
       </button>
     ))}
   </div>
