@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchMembers } from '../../store/slices/membersSlice';
 import MemberCard from '../../components/MemberCard/MemberCard';
 import { sendVote } from '../../store/slices/votingSlice';
@@ -8,12 +8,22 @@ import './ConferencePage.scss';
 
 const ConferencePage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { members, status, error } = useSelector((state) => state.members);
+  const [allVoted, setAllVoted] = useState(false);
 
   useEffect(() => {
     dispatch(fetchMembers(id));
   }, [id, dispatch]);
+
+  useEffect(() => {
+    // Проверяем, проголосовали ли за всех участников
+    if (members.length > 0) {
+      const votedAll = members.every(member => localStorage.getItem(`voted-${member.id}`) === 'true');
+      setAllVoted(votedAll);
+    }
+  }, [members]);
 
   if (status === 'loading') return <div>Загрузка участников...</div>;
   if (status === 'failed') return <div>Ошибка: {error}</div>;
@@ -26,6 +36,10 @@ const ConferencePage = () => {
     };
 
     dispatch(sendVote(voteData));
+
+    // После голосования обновляем состояние
+    localStorage.setItem(`voted-${memberId}`, 'true');
+    setAllVoted(members.every(member => localStorage.getItem(`voted-${member.id}`) === 'true'));
   };
 
   return (
@@ -36,6 +50,12 @@ const ConferencePage = () => {
           <MemberCard key={member.id} member={member} onVoteComplete={handleVote} />
         ))}
       </div>
+
+      {allVoted && (
+        <button className="results-button" onClick={() => navigate(`/results/${id}`)}>
+          Перейти на страницу результатов
+        </button>
+      )}
     </div>
   );
 };

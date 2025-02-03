@@ -24,3 +24,14 @@ export const voteForMember = async (voteData) => {
     throw error;
   }
 };
+
+// Получить количество голосов (реакций) за участника
+export const getReactionCounts = async (memberId) => {
+  try {
+    const response = await axios.get(`${API_BASE}/reaction-counts?member_id=${memberId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Ошибка при получении результатов голосования:', error);
+    throw error;
+  }
+};

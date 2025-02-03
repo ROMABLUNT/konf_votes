@@ -1,0 +1,38 @@
+.results-container {
+    text-align: center;
+    padding: 20px;
+  
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  
+    .member-results {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+      h2 {
+        margin-bottom: 5px;
+      }
+  
+      .reaction-results {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        font-size: 18px;
+  
+        .reaction-item {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          background: #f3f3f3;
+          padding: 8px 12px;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+  
