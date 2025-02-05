@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ConferencePage from './pages/Conference/ConferencePage';
-import ResultsPage from './components/ResultsPage/ResultsPage';
+import ResultsPageContainer from './components/ResultsPage/ResultsPageContainer';
+import ConferencePageContainer from './pages/Conference/ConferencePageContainer';
 
 const App = () => (
   <Router>
     <Routes>
-      <Route path="/conference/:id" element={<ConferencePage />} />
-      <Route path="/results/:id" element={<ResultsPage />} />
+      <Route path="/conference/:id" element={<ConferencePageContainer />} />
+      <Route path="/results/:id" element={<ResultsPageContainer />} />
     </Routes>
   </Router>
 );

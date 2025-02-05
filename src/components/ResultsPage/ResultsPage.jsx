@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchMembers } from '../../store/slices/membersSlice';
@@ -23,10 +23,11 @@ const ResultsPage = () => {
   const [loadingResults, setLoadingResults] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchMembers(id));
+    console.log('Запрашиваем участников конференции:', id);
+    dispatch(fetchMembers(id)).then(() => console.log('Участники загружены:', members));
   }, [id, dispatch]);
 
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     if (members.length > 0) {
       await Promise.all(
         members.map(async (member) => {
@@ -35,13 +36,15 @@ const ResultsPage = () => {
       );
       setLoadingResults(false);
     }
-  };
+  }, [members, dispatch]);
 
   useEffect(() => {
-    fetchResults(); 
-    const interval = setInterval(fetchResults, 2000); 
-    return () => clearInterval(interval); 
-  }, [members, dispatch]);
+    if (members.length > 0) {
+      fetchResults();
+      const interval = setInterval(fetchResults, 2000);
+      return () => clearInterval(interval);
+    }
+  }, [members, dispatch, fetchResults]);
 
   if (loadingResults) return <div>Загрузка результатов...</div>;
 
@@ -62,7 +65,8 @@ const ResultsPage = () => {
           </div>
         </div>
       ))}
-      <button className="results-button" onClick={() => navigate(`/conference/${id}`)}>
+
+      <button className="back-button show" onClick={() => navigate(`/conference/${id}`)}>
         Вернуться к конференции
       </button>
     </div>
