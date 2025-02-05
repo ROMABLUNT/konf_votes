@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getReactionCounts } from '../../services/api'; // Импортируем новый API-запрос
+import { getReactionCounts } from '../../services/api'; 
 
 export const fetchReactionCounts = createAsyncThunk(
   'results/fetchReactionCounts',
   async (memberId) => {
-    const response = await getReactionCounts(memberId); // Используем API-функцию
-    return { memberId, data: response.data }; // Возвращаем объект с ID участника и данными голосов
+    const response = await getReactionCounts(memberId); 
+    return { memberId, data: response.data }; 
   }
 );
 
@@ -15,7 +15,7 @@ const resultsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchReactionCounts.fulfilled, (state, action) => {
-      state.results[action.payload.memberId] = action.payload.data; // Записываем результаты голосования по участнику
+      state.results[action.payload.memberId] = action.payload.data; 
     });
   },
 });

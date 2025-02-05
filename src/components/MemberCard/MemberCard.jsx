@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import ReactionSelector from '../ReactionSelector/ReactionSelector';
 import './MemberCard.scss';
 
+const emojiMap = {
+  1: '👍',
+  2: '👏',
+  3: '❤️',
+  4: '🎉',
+};
+
 const MemberCard = ({ member, onVoteComplete }) => {
   const [reaction, setReaction] = useState(null);
   const [ifVoted, setIfVoted] = useState(false);
@@ -35,10 +42,10 @@ const MemberCard = ({ member, onVoteComplete }) => {
     <div className="member-card">
       <h3>{member.member_name}</h3>
       <p>{member.speech_theme}</p>
-
+  
       {!ifVoted && <ReactionSelector selected={reaction} onSelect={handleReactionSelect} />}
-      {ifVoted && <p>Ваш голос учтен!</p>}
-
+      {ifVoted && <p>Ваша реакция: {emojiMap[reaction]}</p>}
+  
       {!ifVoted && (
         <button className="confirm-button" onClick={handleConfirmClick} disabled={!reaction}>
           Подтвердить

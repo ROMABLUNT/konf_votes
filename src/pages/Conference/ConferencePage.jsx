@@ -18,7 +18,6 @@ const ConferencePage = () => {
   }, [id, dispatch]);
 
   useEffect(() => {
-    // Проверяем, проголосовали ли за всех участников
     if (members.length > 0) {
       const votedAll = members.every(member => localStorage.getItem(`voted-${member.id}`) === 'true');
       setAllVoted(votedAll);
@@ -37,7 +36,6 @@ const ConferencePage = () => {
 
     dispatch(sendVote(voteData));
 
-    // После голосования обновляем состояние
     localStorage.setItem(`voted-${memberId}`, 'true');
     setAllVoted(members.every(member => localStorage.getItem(`voted-${member.id}`) === 'true'));
   };

@@ -1,17 +1,15 @@
-// src/store/slices/votingSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { voteForMember } from '../../services/api';
 
-// Изменяем на sendVote для отправки одного голоса
+
 export const sendVote = createAsyncThunk(
   'voting/sendVote',
   async (voteData, { rejectWithValue }) => {
     try {
-      // Отправляем один голос на сервер
       const response = await voteForMember(voteData);
-      return response; // Возвращаем ответ от сервера
+      return response; 
     } catch (error) {
-      return rejectWithValue(error.response.data); // Обработка ошибок
+      return rejectWithValue(error.response.data); 
     }
   }
 );

@@ -1,7 +1,6 @@
 import React from 'react';
 import './ReactionSelector.scss';
 
-// Задаем ID для каждой реакции
 const emojis = [
   { id: 1, emoji: '👍' },
   { id: 2, emoji: '👏' },
@@ -15,7 +14,7 @@ const ReactionSelector = ({ selected, onSelect }) => (
       <button
         key={reaction.id}
         className={reaction.id === selected ? 'selected' : ''}
-        onClick={() => onSelect(reaction.id)}  // Отправляем id реакции
+        onClick={() => onSelect(reaction.id)} 
       >
         {reaction.emoji}
       </button>

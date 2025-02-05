@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchMembers } from '../../store/slices/membersSlice';
 import { fetchReactionCounts } from '../../store/slices/resultsSlice';
 import './ResultsPage.scss';
@@ -15,9 +15,10 @@ const emojiMap = {
 const ResultsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { members } = useSelector((state) => state.members);
   const resultsState = useSelector((state) => state.results || {}); 
-  const results = resultsState.results || {}; // Убедимся, что это объект
+  const results = resultsState.results || {}; 
 
   const [loadingResults, setLoadingResults] = useState(true);
 
@@ -25,19 +26,21 @@ const ResultsPage = () => {
     dispatch(fetchMembers(id));
   }, [id, dispatch]);
 
-  useEffect(() => {
+  const fetchResults = async () => {
     if (members.length > 0) {
-      const fetchReactions = async () => {
-        await Promise.all(
-          members.map(async (member) => {
-            await dispatch(fetchReactionCounts(member.id)).unwrap();
-          })
-        );
-        setLoadingResults(false);
-      };
-
-      fetchReactions();
+      await Promise.all(
+        members.map(async (member) => {
+          await dispatch(fetchReactionCounts(member.id)).unwrap();
+        })
+      );
+      setLoadingResults(false);
     }
+  };
+
+  useEffect(() => {
+    fetchResults(); 
+    const interval = setInterval(fetchResults, 2000); 
+    return () => clearInterval(interval); 
   }, [members, dispatch]);
 
   if (loadingResults) return <div>Загрузка результатов...</div>;
@@ -59,6 +62,9 @@ const ResultsPage = () => {
           </div>
         </div>
       ))}
+      <button className="results-button" onClick={() => navigate(`/conference/${id}`)}>
+        Вернуться к конференции
+      </button>
     </div>
   );
 };

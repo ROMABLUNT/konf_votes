@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getMembers } from '../../services/api';
 
-// Асинхронный action для получения участников конференции
 export const fetchMembers = createAsyncThunk(
   'members/fetchMembers',
   async (conferenceId) => {
@@ -9,12 +8,11 @@ export const fetchMembers = createAsyncThunk(
   }
 );
 
-// Slice для управления участниками
 const membersSlice = createSlice({
   name: 'members',
   initialState: {
     members: [],
-    status: 'idle', // idle | loading | succeeded | failed
+    status: 'idle',
     error: null,
   },
   reducers: {},

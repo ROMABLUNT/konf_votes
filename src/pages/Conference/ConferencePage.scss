@@ -5,8 +5,8 @@
   color: #333;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрирует содержимое по горизонтали */
-  justify-content: flex-start; /* Позволяет контенту располагаться сверху */
+  align-items: center; 
+  justify-content: flex-start; 
   height: 100vh;
   text-align: center;
 
@@ -17,7 +17,7 @@
     margin-bottom: 30px;
     animation: fadeIn 1s ease-in-out;
     margin-left: auto;
-    margin-right: auto; /* Убедитесь, что заголовок по центру */
+    margin-right: auto; 
   }
 
   .loading,
@@ -69,7 +69,7 @@
     margin-top: 15px;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    animation: fadeInUp 1s ease-out forwards; /* Появление кнопки */
+    animation: fadeInUp 1s ease-out forwards; 
   }
 
   .confirm-button:hover {

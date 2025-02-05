@@ -1,8 +1,7 @@
-// src/store/index.js
 import { configureStore } from '@reduxjs/toolkit';
 import eventsReducer from './slices/eventsSlice';
 import membersReducer from './slices/membersSlice';
-import votingReducer from './slices/votingSlice'; // Импортируем новый слайс
+import votingReducer from './slices/votingSlice'; 
 import resultsReducer from './slices/resultsSlice';
 
 const store = configureStore({
@@ -10,7 +9,7 @@ const store = configureStore({
     events: eventsReducer,
     members: membersReducer,
     voting: votingReducer,
-    results: resultsReducer // Добавляем новый слайс в store
+    results: resultsReducer 
   },
 });
 

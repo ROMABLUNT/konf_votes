@@ -1,17 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getEvents } from '../../services/api';
 
-// Асинхронное действие для получения списка событий
 export const fetchEvents = createAsyncThunk('events/fetchEvents', async () => {
   return await getEvents();
 });
 
-// Slice для управления событиями
 const eventsSlice = createSlice({
   name: 'events',
   initialState: {
     events: [],
-    status: 'idle', // idle | loading | succeeded | failed
+    status: 'idle',
     error: null,
   },
   reducers: {},
